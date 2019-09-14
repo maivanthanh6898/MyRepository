@@ -5,9 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 public class MainActivity extends AppCompatActivity {
-    private LinearLayout mainlayout;
+    private RelativeLayout mainlayout;
     private Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private void control(){
-        mainlayout = (LinearLayout)findViewById(R.id.mainlayout);
+        mainlayout = (RelativeLayout)findViewById(R.id.mainlayout);
     }
 }
