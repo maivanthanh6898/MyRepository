@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 public class MainActivity extends AppCompatActivity {
     private RelativeLayout mainlayout;
     private Intent intent;
+    private Intent intent1;
     private ImageView imgvisibility,imgpressure,imghumidity,imgwind;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         imghumidity.setImageResource(R.drawable.humidity);
         imgwind.setImageResource(R.drawable.speed);
         intent = new Intent(MainActivity.this,ActivityDetails.class);
+        intent1 = new Intent(MainActivity.this,ActivityInfo.class);
         mainlayout.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this){
             @Override
             public void onSwipeRight() {
@@ -30,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSwipeLeft() {
-
+                startActivity(intent1);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }
         });
     }
