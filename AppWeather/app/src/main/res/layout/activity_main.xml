@@ -21,7 +21,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Hà Nội"
-            android:textColor="@color/barTextColor"/>
+            android:textColor="@color/barTextColor"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/Address"
@@ -29,7 +30,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Hoàng Mai, Hà Nội"
-            android:textColor="@color/barTextColor"/>
+            android:textColor="@color/barTextColor"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,9 +64,7 @@
             android:id="@+id/Temp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="160dp"
             android:layout_marginBottom="200dp"
             android:text="20°C"
             android:textColor="@color/tempColor"
@@ -72,18 +72,15 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.975"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imgTT"
-            app:layout_constraintVertical_bias="0.048" />
+            app:layout_constraintVertical_bias="0.051" />
 
         <TextView
             android:id="@+id/wtCity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="149dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="144dp"
             android:layout_marginBottom="236dp"
             android:gravity="center"
             android:text="Hà Nội"
@@ -92,9 +89,10 @@
             android:textStyle="bold|italic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Temp"
-            app:layout_constraintVertical_bias="0.031" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <LinearLayout
             android:layout_width="0dp"
