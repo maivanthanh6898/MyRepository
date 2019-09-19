@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,7 +22,9 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.android.gms.tasks.OnSuccessListener;
+
+public class MainActivity extends AppCompatActivity{
     private RelativeLayout mainlayout;
     private Intent intent;
     private Context mContext;
@@ -80,7 +83,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         locationAPI = new LocationAPI();
-        locationAPI.requestLocationPermission(MainActivity.this);
+        locationAPI.requestLocationPermission(MainActivity.this);// yêu cầu quyền truy cập
+        locationAPI.connectLocationApi(this);//kết nối API
+        locationAPI.locationRequest();//tạo request để lấy location
+        locationAPI.getLocation(this);//tạo locationServices
+        locationAPI.fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+
+                if(location!=null){
+                    //Làm việc với location
+                }
+                else {
+
+                }
+            }
+        });
+
 
     }
     private void controls(){

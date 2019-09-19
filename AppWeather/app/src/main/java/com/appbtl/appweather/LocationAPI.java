@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -67,16 +68,5 @@ public class LocationAPI implements GoogleApiClient.ConnectionCallbacks,GoogleAp
     }
     protected void getLocation(Activity activity){
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
-        fusedLocationClient.getLastLocation().addOnSuccessListener((Executor) this, new OnSuccessListener<android.location.Location>() {
-            @Override
-            public void onSuccess(android.location.Location location) {
-                if(location!=null){
-                    //làm việc với location ở đây
-                }
-                else {
-
-                }
-            }
-        });
     }
 }
