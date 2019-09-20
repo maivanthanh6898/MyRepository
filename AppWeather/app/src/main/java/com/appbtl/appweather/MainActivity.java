@@ -22,6 +22,8 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 public class MainActivity extends AppCompatActivity{
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity{
     private TextView city;
     private ConstraintLayout body;
     private LocationAPI locationAPI;
+    private WeatherAsynctask weatherAsynctask;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,16 +86,16 @@ public class MainActivity extends AppCompatActivity{
             }
         });
         locationAPI = new LocationAPI();
-        locationAPI.requestLocationPermission(MainActivity.this);// yêu cầu quyền truy cập
         locationAPI.connectLocationApi(this);//kết nối API
         locationAPI.locationRequest();//tạo request để lấy location
-        locationAPI.getLocation(this);//tạo locationServices
+        locationAPI.fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         locationAPI.fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
 
                 if(location!=null){
-                    //Làm việc với location
+                    //làm việc với location ở đây
+                    new WeatherAsynctask(MainActivity.this,location).execute();
                 }
                 else {
 
@@ -116,7 +119,6 @@ public class MainActivity extends AppCompatActivity{
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     100);
-            //xin cấp quyền truy cập vị trí
         }
     }
 }

@@ -1,8 +1,9 @@
 package com.appbtl.appweather.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class OpenWeatherJson {
+public class OpenWeatherJson implements Serializable {
     private Coord coord;
     private Sys sys;
     private Clouds clouds;

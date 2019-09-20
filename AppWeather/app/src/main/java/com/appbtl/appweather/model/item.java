@@ -2,29 +2,17 @@ package com.appbtl.appweather.model;
 
 import java.io.Serializable;
 
-public class item implements Serializable {
+public class item{
     private String weather;
     private String maxTemp;
     private String minTemp;
     private String date;
     private String status;
 
-    public item(String weather, String maxTemp, String minTemp, String date, String status) {
-        this.weather = weather;
-        this.maxTemp = maxTemp;
-        this.minTemp = minTemp;
-        this.date = date;
-        this.status = status;
-    }
-
     public String getWeather() {
         return weather;
     }
 
-    public item(String date, String status) {
-        this.date = date;
-        this.status = status;
-    }
 
     public void setWeather(String weather) {
         this.weather = weather;

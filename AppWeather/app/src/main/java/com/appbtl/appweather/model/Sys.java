@@ -37,11 +37,4 @@ public class Sys {
     public void setSunset(long sunset) {
         this.sunset = sunset;
     }
-
-    public Sys(double message, String country, long sunrise, long sunset) {
-        this.message = message;
-        this.country = country;
-        this.sunrise = sunrise;
-        this.sunset = sunset;
-    }
 }

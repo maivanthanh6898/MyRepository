@@ -6,13 +6,6 @@ public class WeatherItem {
     private String description;
     private String icon;
 
-    public WeatherItem(long id, String main, String description, String icon) {
-        this.id = id;
-        this.main = main;
-        this.description = description;
-        this.icon = icon;
-    }
-
     public long getId() {
         return id;
     }
