@@ -2,9 +2,15 @@ package com.appbtl.appweather;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,7 +22,9 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.android.gms.tasks.OnSuccessListener;
+
+public class MainActivity extends AppCompatActivity{
     private RelativeLayout mainlayout;
     private Intent intent;
     private Context mContext;
@@ -25,11 +33,12 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imgvisibility,imgpressure,imghumidity,imgwind;
     private TextView city;
     private ConstraintLayout body;
+    private LocationAPI locationAPI;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        control();
+        controls();
         mContext = getApplicationContext();
         imgvisibility.setImageResource(R.drawable.visibility);
         imgpressure.setImageResource(R.drawable.airpress);
@@ -73,12 +82,41 @@ public class MainActivity extends AppCompatActivity {
                 mPopupWindow.showAtLocation(body, Gravity.CENTER,0,0);
             }
         });
+        locationAPI = new LocationAPI();
+        locationAPI.requestLocationPermission(MainActivity.this);// yêu cầu quyền truy cập
+        locationAPI.connectLocationApi(this);//kết nối API
+        locationAPI.locationRequest();//tạo request để lấy location
+        locationAPI.getLocation(this);//tạo locationServices
+        locationAPI.fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+
+                if(location!=null){
+                    //Làm việc với location
+                }
+                else {
+
+                }
+            }
+        });
+
+
     }
-    private void control(){
+    private void controls(){
         mainlayout = (RelativeLayout)findViewById(R.id.mainlayout);
         imgvisibility = (ImageView)findViewById(R.id.imgvisibility);
         imgpressure = (ImageView)findViewById(R.id.imgpressure);
         imghumidity = (ImageView)findViewById(R.id.imghumidity);
         imgwind = (ImageView)findViewById(R.id.imgwind);
+    }
+    protected void requestLocationPermission(){
+        //xin cấp quyền truy cập vị trí
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    100);
+            //xin cấp quyền truy cập vị trí
+        }
     }
 }
