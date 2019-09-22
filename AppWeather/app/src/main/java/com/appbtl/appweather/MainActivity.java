@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
+import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -24,16 +25,17 @@ import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
     private RelativeLayout mainlayout;
     private Intent intent;
     private Context mContext;
     private PopupWindow mPopupWindow;
     private Intent intent1;
-    private ImageView imgvisibility,imgpressure,imghumidity,imgwind;
+    private ImageView imgvisibility, imgpressure, imghumidity, imgwind;
     private TextView city;
     private ConstraintLayout body;
     private LocationAPI locationAPI;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,41 +47,48 @@ public class MainActivity extends AppCompatActivity{
         imghumidity.setImageResource(R.drawable.humidity);
         imgwind.setImageResource(R.drawable.speed);
         city = (TextView) findViewById(R.id.City);
-        body = (ConstraintLayout)findViewById(R.id.body);
-        intent = new Intent(MainActivity.this,ActivityDetails.class);
-        intent1 = new Intent(MainActivity.this,ActivityInfo.class);
-        mainlayout.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this){
+        body = (ConstraintLayout) findViewById(R.id.body);
+        intent = new Intent(MainActivity.this, ActivityDetails.class);
+        intent1 = new Intent(MainActivity.this, ActivityInfo.class);
+        mainlayout.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
             @Override
             public void onSwipeRight() {
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
 
             @Override
             public void onSwipeLeft() {
                 startActivity(intent1);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
         city.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-                View customview = inflater.inflate(R.layout.popup,null);
+                View customview = inflater.inflate(R.layout.popup, null);
                 mPopupWindow = new PopupWindow(
                         customview,
                         RelativeLayout.LayoutParams.WRAP_CONTENT,
                         RelativeLayout.LayoutParams.WRAP_CONTENT
                 );
-                Button btnFind = (Button)customview.findViewById(R.id.btnAccept);
-                EditText editText = (EditText)customview.findViewById(R.id.editText);
+                Button btnFind = (Button) customview.findViewById(R.id.btnAccept);
+                EditText editText = (EditText) customview.findViewById(R.id.editText);
+                Button btnWidget = (Button) customview.findViewById(R.id.widget);
+                btnWidget.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
                 btnFind.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         mPopupWindow.dismiss();
                     }
                 });
-                mPopupWindow.showAtLocation(body, Gravity.CENTER,0,0);
+                mPopupWindow.showAtLocation(body, Gravity.CENTER, 0, 0);
             }
         });
         locationAPI = new LocationAPI();
@@ -91,10 +100,9 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onSuccess(Location location) {
 
-                if(location!=null){
+                if (location != null) {
                     //Làm việc với location
-                }
-                else {
+                } else {
 
                 }
             }
@@ -102,14 +110,16 @@ public class MainActivity extends AppCompatActivity{
 
 
     }
-    private void controls(){
-        mainlayout = (RelativeLayout)findViewById(R.id.mainlayout);
-        imgvisibility = (ImageView)findViewById(R.id.imgvisibility);
-        imgpressure = (ImageView)findViewById(R.id.imgpressure);
-        imghumidity = (ImageView)findViewById(R.id.imghumidity);
-        imgwind = (ImageView)findViewById(R.id.imgwind);
+
+    private void controls() {
+        mainlayout = (RelativeLayout) findViewById(R.id.mainlayout);
+        imgvisibility = (ImageView) findViewById(R.id.imgvisibility);
+        imgpressure = (ImageView) findViewById(R.id.imgpressure);
+        imghumidity = (ImageView) findViewById(R.id.imghumidity);
+        imgwind = (ImageView) findViewById(R.id.imgwind);
     }
-    protected void requestLocationPermission(){
+
+    protected void requestLocationPermission() {
         //xin cấp quyền truy cập vị trí
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
