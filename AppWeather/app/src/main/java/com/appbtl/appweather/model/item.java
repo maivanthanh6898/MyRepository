@@ -1,9 +1,15 @@
 package com.appbtl.appweather.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class item{
+    @SerializedName("weather")
+    @Expose
     private String weather;
+    @SerializedName("maxTemp")
     private String maxTemp;
     private String minTemp;
     private String date;
