@@ -103,15 +103,15 @@ public class MainActivity extends AppCompatActivity{
 
                 if(location!=null){
                     //làm việc với location ở đây
-
+                openWeatherMapAPI = new OpenWeatherMapAPI();
+                result = openWeatherMapAPI.getJsonAPI(MainActivity.this,location.getLongitude(),location.getLatitude());
                 }
                 else {
 
                 }
             }
         });
-
-    getJsonAPI();
+        if(result==null)getJsonAPI();
 
     }
     private void controls(){

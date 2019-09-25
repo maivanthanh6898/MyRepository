@@ -24,7 +24,6 @@ import java.net.URLConnection;
 public class OpenWeatherMapAPI {
     private OpenWeatherJson result;
     public OpenWeatherJson getJsonAPI(Context context, String city) {
-
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         String url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=b87ce30a14229dd8e26f167dd2111f06";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -41,6 +40,7 @@ public class OpenWeatherMapAPI {
                     }
                 }
         );
+        requestQueue.add(stringRequest);
         return result;
     }
     public OpenWeatherJson getJsonAPI(Context context,double lon , double lat){
@@ -60,6 +60,7 @@ public class OpenWeatherMapAPI {
                     }
                 }
         );
+        requestQueue.add(stringRequest);
         return result;
     }
 }
