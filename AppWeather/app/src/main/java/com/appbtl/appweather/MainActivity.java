@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -27,7 +28,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.appbtl.appweather.model.Main;
 import com.appbtl.appweather.model.OpenWeatherJson;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -103,15 +103,19 @@ public class MainActivity extends AppCompatActivity{
 
                 if(location!=null){
                     //làm việc với location ở đây
-                openWeatherMapAPI = new OpenWeatherMapAPI();
-                result = openWeatherMapAPI.getJsonAPI(MainActivity.this,location.getLongitude(),location.getLatitude());
+                    getFileJson getJson = new getFileJson();
+                    getJson.getJsonAPI(MainActivity.this,location.getLongitude(),location.getLatitude());
                 }
                 else {
 
                 }
             }
         });
-        if(result==null)getJsonAPI();
+
+
+
+
+
 
     }
     private void controls(){
@@ -133,24 +137,14 @@ public class MainActivity extends AppCompatActivity{
                     100);
         }
     }
-    protected void getJsonAPI(){
-        RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
-        String url = "http://api.openweathermap.org/data/2.5/weather?q=hanoi&appid=b87ce30a14229dd8e26f167dd2111f06";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        result = new Gson().fromJson(response,OpenWeatherJson.class);
-                        temp.setText(""+result.getMain().getTemp());
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
+    private class getFileJson extends OpenWeatherMapAPI{
+            // có thể tạo nhiều class extends từ OpenweatherMapAPI để cập nhập giao diện
+        @Override
+        public void doJson(OpenWeatherJson result) {
 
-                    }
-                }
-        );
-        requestQueue.add(stringRequest);
+            //kết quả trả về json thành object
+            temp.setText(""+result.getMain().getTemp());
+            // làm việc với giao diện ở đây
+        }
     }
 }
