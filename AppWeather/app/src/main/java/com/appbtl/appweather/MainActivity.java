@@ -52,10 +52,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         controls();
         mContext = getApplicationContext();
-        imgvisibility.setImageResource(R.drawable.visibility);
-        imgpressure.setImageResource(R.drawable.airpress);
-        imghumidity.setImageResource(R.drawable.humidity);
-        imgwind.setImageResource(R.drawable.speed);
+        setIcon();
 
         intent = new Intent(MainActivity.this,ActivityDetails.class);
         intent1 = new Intent(MainActivity.this,ActivityInfo.class);
@@ -104,7 +101,7 @@ public class MainActivity extends AppCompatActivity{
                 if(location!=null){
                     //làm việc với location ở đây
                     getFileJson getJson = new getFileJson();
-                    getJson.getJsonAPI(MainActivity.this,location.getLongitude(),location.getLatitude());
+                    getJson.getJsonAPI(MainActivity.this,location.getLongitude(),location.getLatitude());//truyền tham số location để lấy file json
                 }
                 else {
 
@@ -146,5 +143,12 @@ public class MainActivity extends AppCompatActivity{
             temp.setText(""+t);
             // làm việc với giao diện ở đây
         }
+    }
+    private void setIcon(){
+        imgvisibility.setImageResource(R.drawable.visibility);
+        imgpressure.setImageResource(R.drawable.airpress);
+        imghumidity.setImageResource(R.drawable.humidity);
+        imgwind.setImageResource(R.drawable.speed);
+
     }
 }
