@@ -141,9 +141,9 @@ public class MainActivity extends AppCompatActivity{
             // có thể tạo nhiều class extends từ OpenweatherMapAPI để cập nhập giao diện
         @Override
         public void doJson(OpenWeatherJson result) {
-
+            double t = result.getMain().getTemp()-275.15;
             //kết quả trả về json thành object
-            temp.setText(""+result.getMain().getTemp());
+            temp.setText(""+t);
             // làm việc với giao diện ở đây
         }
     }
