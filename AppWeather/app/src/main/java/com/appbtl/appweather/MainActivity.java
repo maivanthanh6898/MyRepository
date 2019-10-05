@@ -58,9 +58,8 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(intent1);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }
-
             @Override
-            public void onSwipeTop() {
+            public void onSwipeBottom() {
                 locationAPI.fusedLocationClient.getLastLocation().addOnSuccessListener(MainActivity.this, new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
@@ -68,7 +67,7 @@ public class MainActivity extends AppCompatActivity{
                             //làm việc với location ở đây
                             String url = "http://api.openweathermap.org/data/2.5/weather?" + "lat="+location.getLatitude()+"&lon="+location.getLongitude() + "&appid=b87ce30a14229dd8e26f167dd2111f06";
                             //truyền tham số location để lấy file json
-                            new ok().execute(url);
+                            new GetFileJson().execute(url);
                         }
                         else {
                             Toast.makeText(MainActivity.this,"Chưa nhận được vị trí.Vui lòng kiểm tra lại GPS!",Toast.LENGTH_SHORT).show();
@@ -110,7 +109,7 @@ public class MainActivity extends AppCompatActivity{
                     //làm việc với location ở đây
                     String url = "http://api.openweathermap.org/data/2.5/weather?" + "lat="+location.getLatitude()+"&lon="+location.getLongitude() + "&appid=b87ce30a14229dd8e26f167dd2111f06";
                     //truyền tham số location để lấy file json
-                    new ok().execute(url);
+                    new GetFileJson().execute(url);
                 }
                 else {
                     Toast.makeText(MainActivity.this,"Chưa nhận được vị trí.Vui lòng kiểm tra lại GPS!",Toast.LENGTH_SHORT).show();
@@ -144,7 +143,7 @@ public class MainActivity extends AppCompatActivity{
         intent = new Intent(MainActivity.this,ActivityDetails.class);
         intent1 = new Intent(MainActivity.this,ActivityInfo.class);
     }
-    private class ok extends WeatherAsynctask{
+    private class GetFileJson extends WeatherAsynctask{
         @Override
         public void doJson(OpenWeatherJson result) {
             int tempmain,tempmax,tempmin;
