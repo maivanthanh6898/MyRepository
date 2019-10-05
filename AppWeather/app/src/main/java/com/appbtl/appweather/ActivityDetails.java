@@ -22,18 +22,6 @@ public class ActivityDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         ArrayList<item> list = new ArrayList<item>();
-        item day1 = new item("rain", "33°C", "31°C","16/9","Nắng");
-        item day2 = new item("shine", "33°C", "31°C","17/9","Nắng");
-        item day3 = new item("rain", "33°C", "31°C","18/9","Nắng");
-        item day4 = new item("rain", "36°C", "31°C","19/9","Nắng");
-        item day5 = new item("shine", "35°C", "31°C","20/9","Nắng");
-        item day6 = new item("rain", "34°C", "31°C","21/9","Nắng");
-        list.add(day1);
-        list.add(day2);
-        list.add(day3);
-        list.add(day4);
-        list.add(day5);
-        list.add(day6);
         listView = (ListView) findViewById(R.id.lvDaily);
         listView.setAdapter(new Adapter(list, ActivityDetails.this));
         control();
