@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.appbtl.appweather.model.ListDailys;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -38,6 +39,8 @@ public class ListDailysAdapter extends RecyclerView.Adapter<ListDailysAdapter.re
         int min=(int)mi;
         holder.tMax.setText(max+"°C");
         holder.tMin.setText(min+"°C");
+        Glide.with(holder.itemView.getContext()).load("http://openweathermap.org/img/w/"+listDailys.getList().get(position).getWeather().get(0).getIcon()+".png")
+                .into(holder.imgTT);
     }
 
     @Override
@@ -54,6 +57,7 @@ public class ListDailysAdapter extends RecyclerView.Adapter<ListDailysAdapter.re
             txtTT=(TextView)itemView.findViewById(R.id.txtTT);
             tMax =(TextView)itemView.findViewById(R.id.tMax);
             tMin = (TextView)itemView.findViewById(R.id.tMin);
+            imgTT = (ImageView)itemView.findViewById(R.id.imgTT);
         }
     }
 }
