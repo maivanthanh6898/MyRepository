@@ -1,24 +1,30 @@
 package com.appbtl.appweather.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 
-public class item{
-    @SerializedName("weather")
-    @Expose
+public class item implements Serializable {
     private String weather;
-    @SerializedName("maxTemp")
     private String maxTemp;
     private String minTemp;
     private String date;
     private String status;
 
+    public item(String weather, String maxTemp, String minTemp, String date, String status) {
+        this.weather = weather;
+        this.maxTemp = maxTemp;
+        this.minTemp = minTemp;
+        this.date = date;
+        this.status = status;
+    }
+
     public String getWeather() {
         return weather;
     }
 
+    public item(String date, String status) {
+        this.date = date;
+        this.status = status;
+    }
 
     public void setWeather(String weather) {
         this.weather = weather;

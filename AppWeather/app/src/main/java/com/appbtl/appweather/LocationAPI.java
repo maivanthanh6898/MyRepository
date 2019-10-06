@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,7 +17,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import static androidx.core.content.ContextCompat.getSystemService;
+import com.google.android.gms.tasks.OnSuccessListener;
+
+import java.util.concurrent.Executor;
 
 public class LocationAPI implements GoogleApiClient.ConnectionCallbacks,GoogleApiClient.OnConnectionFailedListener{
     LocationRequest locationRequest;
