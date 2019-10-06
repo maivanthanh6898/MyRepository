@@ -16,6 +16,7 @@ import com.appbtl.appweather.model.ListDailys;
 import com.appbtl.appweather.model.item;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +25,18 @@ public class ActivityDetails extends AppCompatActivity {
     private LinearLayout detaillayout;
     private Intent intent;
     private RecyclerView recyclerView;
+    private ListDailys listDailys;
     private LocationAPI locationAPI;
+    private String resultDailys;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         control();
         intent = new Intent(ActivityDetails.this, MainActivity.class);
+        Intent intentdetail= getIntent();
+        resultDailys = intentdetail.getStringExtra("dailys");
+        listDailys = new Gson().fromJson(resultDailys,ListDailys.class);
         detaillayout.setOnTouchListener(new OnSwipeTouchListener(ActivityDetails.this) {
             @Override
             public void onSwipeLeft() {
@@ -45,21 +51,9 @@ public class ActivityDetails extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
-        locationAPI = new LocationAPI();
-        locationAPI.connectLocationApi(this);//kết nối API
-        locationAPI.locationRequest();//tạo request để lấy location
-        locationAPI.fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        locationAPI.fusedLocationClient.getLastLocation().addOnSuccessListener(ActivityDetails.this, new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if(location!=null){
-                    GetWeatherDailys dailys = new GetWeatherDailys();
-                    String url = "http://api.openweathermap.org/data/2.5/forecast/daily?lat="+location.getLatitude()+"&lon="+location.getLongitude()+"&units=metric&cnt=7&appid=be8d3e323de722ff78208a7dbb2dcd6f";
-                    dailys.execute(url);
-                }
-            }
-        });
+        updateUI(listDailys);
     }
+
 
     @Override
     public void finish() {
@@ -71,14 +65,11 @@ public class ActivityDetails extends AppCompatActivity {
         detaillayout = (LinearLayout) findViewById(R.id.detaillayout);
         recyclerView =(RecyclerView)findViewById(R.id.recView);
     }
-    protected class GetWeatherDailys extends WeatherDailysAsynctask{
-        @Override
-        public void doJsonDailys(ListDailys listDailys) {
-            recyclerView.setHasFixedSize(true);
-            LinearLayoutManager manager =new LinearLayoutManager(ActivityDetails.this,LinearLayoutManager.VERTICAL,false);
-            recyclerView.setLayoutManager(manager);
-            ListDailysAdapter dailysAdapter =new ListDailysAdapter(listDailys,ActivityDetails.this);
-            recyclerView.setAdapter(dailysAdapter);
-        }
+    public void updateUI(ListDailys listDailys){
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager manager =new LinearLayoutManager(ActivityDetails.this,LinearLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(manager);
+        ListDailysAdapter dailysAdapter =new ListDailysAdapter(listDailys,ActivityDetails.this);
+        recyclerView.setAdapter(dailysAdapter);
     }
 }

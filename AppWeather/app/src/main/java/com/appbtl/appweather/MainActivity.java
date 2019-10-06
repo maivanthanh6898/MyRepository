@@ -26,6 +26,8 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.util.concurrent.ExecutionException;
+
 public class MainActivity extends AppCompatActivity{
     private RelativeLayout mainlayout;
     private Intent intent;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity{
     private ConstraintLayout body;
     private LocationAPI locationAPI;
     private AnimationDrawable animBackgroundRain;
+    private String resultDailys;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +52,7 @@ public class MainActivity extends AppCompatActivity{
         mainlayout.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this){
             @Override
             public void onSwipeRight() {
+                intent.putExtra("dailys",resultDailys);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
             }
@@ -67,7 +71,16 @@ public class MainActivity extends AppCompatActivity{
                             //làm việc với location ở đây
                             String url = "http://api.openweathermap.org/data/2.5/weather?" + "lat="+location.getLatitude()+"&lon="+location.getLongitude() + "&appid=b87ce30a14229dd8e26f167dd2111f06";
                             //truyền tham số location để lấy file json
+                            String dailys = "http://api.openweathermap.org/data/2.5/forecast/daily?lat="+location.getLatitude()+"&lon="+location.getLongitude()+"&units=metric&cnt=7&appid=be8d3e323de722ff78208a7dbb2dcd6f";
+
                             new GetFileJson().execute(url);
+                            try {
+                                resultDailys=new WeatherDailysAsynctask().execute(dailys).get();
+                            } catch (ExecutionException e) {
+                                e.printStackTrace();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                         }
                         else {
                             Toast.makeText(MainActivity.this,"Chưa nhận được vị trí.Vui lòng kiểm tra lại GPS!",Toast.LENGTH_SHORT).show();
@@ -109,7 +122,16 @@ public class MainActivity extends AppCompatActivity{
                     //làm việc với location ở đây
                     String url = "http://api.openweathermap.org/data/2.5/weather?" + "lat="+location.getLatitude()+"&lon="+location.getLongitude() + "&appid=b87ce30a14229dd8e26f167dd2111f06";
                     //truyền tham số location để lấy file json
+                    String dailys = "http://api.openweathermap.org/data/2.5/forecast/daily?lat="+location.getLatitude()+"&lon="+location.getLongitude()+"&units=metric&cnt=7&appid=be8d3e323de722ff78208a7dbb2dcd6f";
+
                     new GetFileJson().execute(url);
+                    try {
+                        resultDailys = new WeatherDailysAsynctask().execute(dailys).get();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else {
                     Toast.makeText(MainActivity.this,"Chưa nhận được vị trí.Vui lòng kiểm tra lại GPS!",Toast.LENGTH_SHORT).show();
@@ -157,7 +179,7 @@ public class MainActivity extends AppCompatActivity{
             temp.setText(tempmain+"°C");
             tempMax.setText(tempmax+"°C");
             tempMin.setText(tempmin+"°C");
-            mainWeather.setText(result.getWeather().get(0).getMain());
+            mainWeather.setText(result.getWeather().get(0).getDescription());
             visibility.setText(result.getVisibility()+"m");
             airpress.setText(result.getMain().getPressure()+" hpa");
             humidity.setText(result.getMain().getHumidity()+"%");
