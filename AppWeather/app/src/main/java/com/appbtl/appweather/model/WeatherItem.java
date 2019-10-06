@@ -1,21 +1,18 @@
 package com.appbtl.appweather.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 public class WeatherItem {
-    @SerializedName("id")
-    @Expose
     private long id;
-    @SerializedName("main")
-    @Expose
     private String main;
-    @SerializedName("description")
-    @Expose
     private String description;
-    @SerializedName("icon")
-    @Expose
     private String icon;
+
+    public WeatherItem(long id, String main, String description, String icon) {
+        this.id = id;
+        this.main = main;
+        this.description = description;
+        this.icon = icon;
+    }
+
     public long getId() {
         return id;
     }
@@ -47,5 +44,4 @@ public class WeatherItem {
     public void setIcon(String icon) {
         this.icon = icon;
     }
-
 }

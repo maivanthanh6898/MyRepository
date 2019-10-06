@@ -1,21 +1,11 @@
 package com.appbtl.appweather.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 public class Wind {
-    @SerializedName("speed")
-    @Expose
     private double speed;
-    @SerializedName("deg")
-    @Expose
-    private long deg;
+    private double deg;
 
-    public long getDeg() {
-        return deg;
-    }
-
-    public void setDeg(long deg) {
+    public Wind(double speed, double deg) {
+        this.speed = speed;
         this.deg = deg;
     }
 
@@ -25,5 +15,13 @@ public class Wind {
 
     public void setSpeed(double speed) {
         this.speed = speed;
+    }
+
+    public double getDeg() {
+        return deg;
+    }
+
+    public void setDeg(double deg) {
+        this.deg = deg;
     }
 }

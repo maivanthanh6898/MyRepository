@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.appbtl.appweather.model.item;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Adapter extends BaseAdapter {
     private ArrayList<item> listData;
@@ -44,11 +45,11 @@ public class Adapter extends BaseAdapter {
         if (view == null) {
             view = layoutInflater.inflate(R.layout.item, null);
             holder = new ViewHolder();
-            holder.imgWeather = (ImageView) view.findViewById(R.id.imgTT);
-            holder.maxTemp = (TextView) view.findViewById(R.id.tMax);
-            holder.minTemp = (TextView) view.findViewById(R.id.tMin);
-            holder.date = (TextView) view.findViewById(R.id.tDate);
-            holder.status = (TextView) view.findViewById(R.id.txtTT);
+            holder.imgWeather = (ImageView) view.findViewById(R.id.imageView2);
+            holder.maxTemp = (TextView) view.findViewById(R.id.textView9);
+            holder.minTemp = (TextView) view.findViewById(R.id.textView10);
+            holder.date = (TextView) view.findViewById(R.id.textView7);
+            holder.status = (TextView) view.findViewById(R.id.textView8);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();

@@ -1,20 +1,17 @@
 package com.appbtl.appweather.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+public class Clouds {
+    private int all;
 
-
-public class Clouds{
-    @SerializedName("all")
-    @Expose
-    private long all;
-
-    public long getAll() {
+    public int getAll() {
         return all;
     }
 
-    public void setAll(long all) {
+    public void setAll(int all) {
+        this.all = all;
+    }
+
+    public Clouds(int all) {
         this.all = all;
     }
 }
-

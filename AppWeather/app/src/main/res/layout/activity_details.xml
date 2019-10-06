@@ -19,10 +19,9 @@
         android:textSize="24sp"
         android:textStyle="bold" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recView"
+    <ListView
+        android:id="@+id/lvDaily"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg" />
-
+        android:background="@drawable/bg"/>
 </LinearLayout>
