@@ -39,6 +39,7 @@ public class ListDailysAdapter extends RecyclerView.Adapter<ListDailysAdapter.re
         int min=(int)mi;
         holder.tMax.setText(max+"°C");
         holder.tMin.setText(min+"°C");
+        holder.txtTT.setText(listDailys.getList().get(position).getWeather().get(0).getDescription());
         Glide.with(holder.itemView.getContext()).load("http://openweathermap.org/img/w/"+listDailys.getList().get(position).getWeather().get(0).getIcon()+".png")
                 .into(holder.imgTT);
     }
