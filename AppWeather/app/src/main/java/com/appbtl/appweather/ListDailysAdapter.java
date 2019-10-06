@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.appbtl.appweather.model.ListDailys;
 import com.bumptech.glide.Glide;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class ListDailysAdapter extends RecyclerView.Adapter<ListDailysAdapter.recylerHolder> {
@@ -37,9 +39,13 @@ public class ListDailysAdapter extends RecyclerView.Adapter<ListDailysAdapter.re
         double mi = listDailys.getList().get(position).getTemp().getMin();
         int max=(int)ma;
         int min=(int)mi;
+        Date date = new Date(listDailys.getList().get(position).getDt()*1000L);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE \ndd-MM-yyyy");
+        String Day = simpleDateFormat.format(date);
         holder.tMax.setText(max+"°C");
         holder.tMin.setText(min+"°C");
         holder.txtTT.setText(listDailys.getList().get(position).getWeather().get(0).getDescription());
+        holder.tdate.setText(Day);
         Glide.with(holder.itemView.getContext()).load("http://openweathermap.org/img/w/"+listDailys.getList().get(position).getWeather().get(0).getIcon()+".png")
                 .into(holder.imgTT);
     }
